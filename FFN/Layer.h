@@ -9,6 +9,7 @@ class Layer
 	int size;
 	int inputs;
 	double** weights;
+	double* biases;
 public:
 	Layer(int size, int inputs)
 	{
@@ -16,6 +17,7 @@ public:
 		this->inputs = inputs;
 
 		weights = new double* [size];
+		biases = new double[size];
 		for (int i = 0; i < size; i++) weights[i] = new double[inputs];
 	}
 
@@ -23,7 +25,10 @@ public:
 	{
 		for (int i = 0; i < size; i++) delete[] weights[i];
 		delete[] weights;
+		delete[] biases;
 	}
+
+
 };
 
 #endif

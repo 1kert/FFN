@@ -3,6 +3,5 @@
 
 int main()
 {
-	Layer l(10);
-	l.print();
+
 }
