@@ -6,29 +6,15 @@
 
 class Layer
 {
-	int size;
-	int inputs;
-	double** weights;
-	double* biases;
+	std::vector<std::vector<double>> weights;
+	std::vector<double> biases;
 public:
 	Layer(int size, int inputs)
 	{
-		this->size = size;
-		this->inputs = inputs;
-
-		weights = new double* [size];
-		biases = new double[size];
-		for (int i = 0; i < size; i++) weights[i] = new double[inputs];
+		weights = std::vector<std::vector<double>>(size);
+		for (int i = 0; i < size; i++) weights[i] = std::vector<double>(inputs);
+		biases = std::vector<double>(size);
 	}
-
-	~Layer()
-	{
-		for (int i = 0; i < size; i++) delete[] weights[i];
-		delete[] weights;
-		delete[] biases;
-	}
-
-
 };
 
 #endif

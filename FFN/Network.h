@@ -12,7 +12,8 @@ public:
 	{
 		for (int i = 1; i < layers.size(); i++)
 		{
-			this->layers.push_back(Layer(layers[i], layers[i - 1]));
+			Layer layer(layers[i], layers[i - 1]);
+			this->layers.push_back(layer);
 		}
 	}
 
