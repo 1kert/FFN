@@ -15,6 +15,11 @@ public:
 			this->layers.push_back(Layer(layers[i], layers[i - 1]));
 		}
 	}
+
+	std::vector<Layer> getLayers()
+	{
+		return layers;
+	}
 };
 
 #endif // !NETWORK_H
