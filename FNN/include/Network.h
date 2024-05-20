@@ -21,6 +21,15 @@ public:
 	{
 		return layers;
 	}
+
+	std::vector<double> calculateOutputs(std::vector<double> inputs)
+	{
+		for(Layer layer : layers)
+		{
+			inputs = layer.calculateOutputs(inputs);
+		}
+		return inputs;
+	}
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <numeric>
 
 class Layer
 {
@@ -24,6 +25,19 @@ public:
 		biases = std::vector<double>(size);
         for(int i = 0; i < size; i++) biases[i] = distr(engine);
 	}
+
+    std::vector<double> calculateOutputs(std::vector<double> inputs)
+    {
+        int inputSize = weights[0].size();
+        if(inputs.size() > inputSize) throw std::length_error("too many inputs");
+        std::vector<double> output(weights.size(), 0);
+        for(int node = 0; node < output.size(); node++)
+        {
+            for(int input = 0; input < inputSize; input++) output[node] += inputs[input] * weights[node][input];
+            output[node] += biases[node];
+        }
+        return output;
+    }
 };
 
 #endif
