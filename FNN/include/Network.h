@@ -23,4 +23,4 @@ public:
 	}
 };
 
-#endif // !NETWORK_H
+#endif

@@ -364,3 +364,5 @@ FodyWeavers.xsd
 
 *.vcxproj*
 FFN.cpp
+FNN.cpp
+output.out
