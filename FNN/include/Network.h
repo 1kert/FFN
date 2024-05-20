@@ -6,8 +6,9 @@
 
 class Network
 {
-	std::vector<Layer> layers;
 public:
+	std::vector<Layer> layers;
+	
 	Network(std::vector<int> layers)
 	{
 		for (int i = 1; i < layers.size(); i++)
