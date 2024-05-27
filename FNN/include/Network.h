@@ -33,16 +33,15 @@ public:
 		return inputs;
 	}
 
-	static double calculateError(Dataset data)
+	double calculateError(Dataset data)
     {
-        if(data.data.size() != data.expected.size()) throw std::length_error("actual and expected not the same size");
-
-        double sum = 0;
-        for(size_t i = 0; i < data.data.size(); i++) sum += std::pow(data.data[i] - data.expected[i], 2);
-        return sum / data.data.size();
+		std::vector<double> outputs = calculateOutputs(data.data);
+		double error = 0;
+		for(size_t i = 0; i < outputs.size(); i++) error += std::pow(data.expected[i] - outputs[i], 2);
+		return error;
     }
 
-	static double calculateError(std::vector<Dataset> data)
+	double calculateError(std::vector<Dataset> data)
 	{
 		double error = 0;
 		for(size_t i = 0; i < data.size(); i++) error += calculateError(data[i]);
@@ -51,8 +50,6 @@ public:
 
 	void learn(Dataset* data)
 	{
-		std::vector<double> outputs = calculateOutputs(data->data);
-		double error = calculateError(outputs, data->expected);
 
 	}
 };
