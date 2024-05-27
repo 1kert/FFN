@@ -2,6 +2,7 @@
 #define NETWORK_H
 
 #include "Layer.h"
+#include "Dataset.h"
 #include <vector>
 
 class Network
@@ -41,12 +42,12 @@ public:
         return sum /= actual.size();
     }
 
-	void learn(std::vector<double> data, std::vector<double> expected)
+	void learn(Dataset data)
 	{
-		std::vector<double> outputs = calculateOutputs(data);
-		double error = calculateError(outputs, expected);
+		std::vector<double> outputs = calculateOutputs(data.data);
+		double error = calculateError(outputs, data.expected);
 		
-		
+
 	}
 };
 

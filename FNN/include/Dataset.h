@@ -6,12 +6,12 @@
 class Dataset
 {
 public:
-    std::vector<double> output;
+    std::vector<double> data;
     std::vector<double> expected;
 
-    Dataset(std::vector<double> output, std::vector<double> expected)
+    Dataset(std::vector<double> data, std::vector<double> expected)
     {
-        this->output = output;
+        this->data = data;
         this->expected = expected;
     }
 };
