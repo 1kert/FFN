@@ -40,6 +40,14 @@ public:
         for(size_t i = 0; i < actual.size(); i++) sum += std::pow(actual[i] - expected[i], 2);
         return sum /= actual.size();
     }
+
+	void learn(std::vector<double> data, std::vector<double> expected)
+	{
+		std::vector<double> outputs = calculateOutputs(data);
+		double error = calculateError(outputs, expected);
+		
+		
+	}
 };
 
 #endif
