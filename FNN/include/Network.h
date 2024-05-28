@@ -48,9 +48,26 @@ public:
 		return error / data.size();
 	}
 
-	void learn(Dataset* data)
+	void resetAllGradients()
+	{
+		for(size_t i = 0; i < layers.size(); i++) layers[i].resetGradients();
+	}
+
+	void updateGradients(std::vector<Dataset> dataset)
 	{
 
+	}
+	
+	void learn(std::vector<Dataset> dataset, double learningRate)
+	{
+		double error = calculateError(dataset);
+
+
+		// calculate gradients
+		for(size_t i = 0; dataset.size(); i++)
+		{
+
+		}
 	}
 };
 
