@@ -53,7 +53,7 @@ public:
 		for(size_t i = 0; i < layers.size(); i++) layers[i].resetGradients();
 	}
 
-	void updateGradients(Dataset dataset, double learnRate)
+	void updateGradients(Dataset dataset)
 	{
 		calculateOutputs(dataset.data);
 
@@ -109,7 +109,8 @@ public:
 
 	void Learn(Dataset data, double learnRate)
 	{
-		
+		updateGradients(data);
+		applyGradients(learnRate);
 	}
 };
 
