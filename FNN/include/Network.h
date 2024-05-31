@@ -73,6 +73,7 @@ public:
 		}
 		for(size_t i = layers.size() - 2; i >= 0; i--)
 		{
+			printf("%d\n", i);
 			Layer current = layers[i];
 			Layer prev = layers[i + 1];
 			// get node values

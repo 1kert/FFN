@@ -80,7 +80,7 @@ public:
     {
         for(size_t i = 0; i < biases.size(); i++)
         {
-            for(size_t j = 0; j < weights[i].size(); i++)
+            for(size_t j = 0; j < weights[i].size(); j++)
             {
                 weights[i][j] += weightGradients[i][j] * learnRate;
             }
