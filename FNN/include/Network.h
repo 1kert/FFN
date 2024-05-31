@@ -71,6 +71,7 @@ public:
 			}
 			outputLayer.biasGradients[i] += outputLayer.nodeValues[i];
 		}
+		
 		for(size_t i = layers.size() - 2; i >= 0; i--)
 		{
 			Layer current = layers[i];

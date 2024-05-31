@@ -66,7 +66,7 @@ public:
 
     void resetGradients()
     {
-        for(size_t node = 0; biases.size(); node++)
+        for(size_t node = 0; node < biases.size(); node++)
         {
             biasGradients[node] = 0;
             for(size_t i = 0; i < weightGradients[node].size(); i++)
