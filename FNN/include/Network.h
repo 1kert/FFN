@@ -53,22 +53,10 @@ public:
 		for(size_t i = 0; i < layers.size(); i++) layers[i].resetGradients();
 	}
 
-	void updateGradients(std::vector<Dataset> dataset, double learnRate)
+	void updateGradients(Dataset dataset, double learnRate)
 	{
-		for(size_t i = 0; i < dataset.size(); i++)
-		{
-			calculateOutputs(dataset[i].data);
-		}
-	}
-	
-	void learn(std::vector<Dataset> dataset, double learnRate)
-	{
-		double error = calculateError(dataset);
-
-		for(size_t i = 0; dataset.size(); i++)
-		{
-
-		}
+		double errorDerivative = 0;
+		calculateOutputs(dataset.data);
 	}
 };
 
