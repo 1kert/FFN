@@ -56,6 +56,11 @@ public:
         return 1 / (1 + std::exp(-x));
     }
 
+    static double activationDerivative(double x)
+    {
+        return std::exp(-x) / std::pow(1 + std::exp(-x), 2);
+    }
+
     void resetGradients()
     {
         for(size_t node = 0; biases.size(); node++)
