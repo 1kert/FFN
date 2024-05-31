@@ -71,7 +71,6 @@ public:
 			}
 			outputLayer.biasGradients[i] += outputLayer.nodeValues[i];
 		}
-		
 		for(size_t i = layers.size() - 2; i >= 0; i--)
 		{
 			Layer current = layers[i];
@@ -85,14 +84,14 @@ public:
 				current.biasGradients[node] = current.nodeValues[node];
 				if(i == 0)
 				{
-					for(size_t j = 0; j < current.weightGradients[node].size(); i++)
+					for(size_t j = 0; j < current.weightGradients[node].size(); j++)
 					{
 						current.weightGradients[node][j] += current.nodeValues[node] * dataset.data[j];
 					}
 					continue;
 				}
 
-				for(size_t j = 0; j < current.weightGradients[node].size(); i++)
+				for(size_t j = 0; j < current.weightGradients[node].size(); j++)
 				{
 					current.weightGradients[node][j] += current.nodeValues[node] * layers[i - 1].activations[j];
 				}
