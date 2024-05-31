@@ -75,6 +75,18 @@ public:
             }
         }
     }
+
+    void applyGradients(double learnRate)
+    {
+        for(size_t i = 0; i < biases.size(); i++)
+        {
+            for(size_t j = 0; j < weights[i].size(); i++)
+            {
+                weights[i][j] += weightGradients[i][j] * learnRate;
+            }
+            biases[i] += biasGradients[i] * learnRate;
+        }
+    }
 };
 
 #endif

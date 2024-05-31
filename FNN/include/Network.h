@@ -97,6 +97,14 @@ public:
 			}
 		}
 	}
+
+	void applyGradients()
+	{
+		for(size_t i = 0; i < layers.size(); i++)
+		{
+			
+		}
+	}
 };
 
 #endif
