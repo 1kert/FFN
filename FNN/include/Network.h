@@ -62,6 +62,40 @@ public:
 		{
 			outputLayer.nodeValues[i] = Layer::activationDerivative(outputLayer.sums[i]) * 2 * (outputLayer.activations[i] - dataset.expected[i]);
 		}
+		resetAllGradients();
+		for(size_t i = 0; i < outputLayer.activations.size(); i++)
+		{
+			for(size_t j = 0; j < outputLayer.weights[i].size(); j++)
+			{
+				outputLayer.weightGradients[i][j] += outputLayer.nodeValues[i] * layers[layers.size() - 2].activations[j];
+			}
+		}
+		for(size_t i = layers.size() - 2; i >= 0; i--)
+		{
+			Layer current = layers[i];
+			Layer prev = layers[i + 1];
+			// get node values
+			for(size_t node = 0; node < current.activations.size(); node++)
+			{
+				double nodeValue = 0;
+				for(size_t prevNode = 0; prevNode < prev.biases.size(); prevNode++) nodeValue += prev.weights[prevNode][node] * prev.nodeValues[prevNode];
+				current.nodeValues[node] = nodeValue * Layer::activationDerivative(current.sums[node]);
+
+				if(i == 0)
+				{
+					for(size_t j = 0; j < current.weightGradients[node].size(); i++)
+					{
+						current.weightGradients[node][j] += current.nodeValues[node] * dataset.data[j];
+					}
+					continue;
+				}
+
+				for(size_t j = 0; j < current.weightGradients[node].size(); i++)
+				{
+					current.weightGradients[node][j] += current.nodeValues[node] * layers[i - 1].activations[j];
+				}
+			}
+		}
 	}
 };
 
