@@ -14,12 +14,14 @@ public:
 	std::vector<double> biases;
     std::vector<double> biasGradients;
     std::vector<double> nodeValues;
+    std::vector<double> sums;
 
 	Layer(int size, int inputs)
 	{
         nodeValues = std::vector<double>(size);
 		weights = std::vector<std::vector<double>>(size);
         weightGradients = std::vector<std::vector<double>>(size);
+        sums = std::vector<double>(size);
         std::random_device rd;
         std::default_random_engine engine(rd());
         std::uniform_real_distribution distr(0.0, 1.0);
@@ -39,12 +41,19 @@ public:
         int inputSize = weights[0].size();
         if(inputs.size() > inputSize) throw std::length_error("too many inputs");
         std::vector<double> output(weights.size(), 0);
-        for(int node = 0; node < output.size(); node++)
+        for(size_t node = 0; node < output.size(); node++)
         {
-            for(int input = 0; input < inputSize; input++) output[node] += inputs[input] * weights[node][input];
+            for(size_t input = 0; input < inputSize; input++) output[node] += inputs[input] * weights[node][input];
             output[node] += biases[node];
+            sums[node] = output[node];
+            output[node] = activation(output[node]);
         }
         return output;
+    }
+
+    static double activation(double x)
+    {
+        return 1 / (1 + std::exp(-x));
     }
 
     void resetGradients()

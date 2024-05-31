@@ -53,17 +53,18 @@ public:
 		for(size_t i = 0; i < layers.size(); i++) layers[i].resetGradients();
 	}
 
-	void updateGradients(std::vector<Dataset> dataset)
+	void updateGradients(std::vector<Dataset> dataset, double learnRate)
 	{
-
+		for(size_t i = 0; i < dataset.size(); i++)
+		{
+			calculateOutputs(dataset[i].data);
+		}
 	}
 	
-	void learn(std::vector<Dataset> dataset, double learningRate)
+	void learn(std::vector<Dataset> dataset, double learnRate)
 	{
 		double error = calculateError(dataset);
 
-
-		// calculate gradients
 		for(size_t i = 0; dataset.size(); i++)
 		{
 
