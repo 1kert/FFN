@@ -69,6 +69,7 @@ public:
 			{
 				outputLayer.weightGradients[i][j] += outputLayer.nodeValues[i] * layers[layers.size() - 2].activations[j];
 			}
+			outputLayer.biasGradients[i] += outputLayer.nodeValues[i];
 		}
 		for(size_t i = layers.size() - 2; i >= 0; i--)
 		{
@@ -80,7 +81,7 @@ public:
 				double nodeValue = 0;
 				for(size_t prevNode = 0; prevNode < prev.biases.size(); prevNode++) nodeValue += prev.weights[prevNode][node] * prev.nodeValues[prevNode];
 				current.nodeValues[node] = nodeValue * Layer::activationDerivative(current.sums[node]);
-
+				current.biasGradients[node] = current.nodeValues[node];
 				if(i == 0)
 				{
 					for(size_t j = 0; j < current.weightGradients[node].size(); i++)
@@ -98,12 +99,17 @@ public:
 		}
 	}
 
-	void applyGradients()
+	void applyGradients(double learnRate)
 	{
 		for(size_t i = 0; i < layers.size(); i++)
 		{
-			
+			layers[i].applyGradients(learnRate);
 		}
+	}
+
+	void Learn(Dataset data, double learnRate)
+	{
+		
 	}
 };
 
