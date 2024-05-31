@@ -55,8 +55,13 @@ public:
 
 	void updateGradients(Dataset dataset, double learnRate)
 	{
-		double errorDerivative = 0;
 		calculateOutputs(dataset.data);
+
+		Layer outputLayer = layers[layers.size() - 1];
+		for(size_t i = 0; i < outputLayer.sums.size(); i++)
+		{
+			outputLayer.nodeValues[i] = Layer::activationDerivative(outputLayer.sums[i]) * 2 * (outputLayer.activations[i] - dataset.expected[i]);
+		}
 	}
 };
 

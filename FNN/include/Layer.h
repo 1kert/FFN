@@ -15,12 +15,14 @@ public:
     std::vector<double> biasGradients;
     std::vector<double> nodeValues;
     std::vector<double> sums;
+    std::vector<double> activations;
 
 	Layer(int size, int inputs)
 	{
         nodeValues = std::vector<double>(size);
 		weights = std::vector<std::vector<double>>(size);
         weightGradients = std::vector<std::vector<double>>(size);
+        activations = std::vector<double>(size);
         sums = std::vector<double>(size);
         std::random_device rd;
         std::default_random_engine engine(rd());
@@ -47,6 +49,7 @@ public:
             output[node] += biases[node];
             sums[node] = output[node];
             output[node] = activation(output[node]);
+            activations[node] = output[node];
         }
         return output;
     }
