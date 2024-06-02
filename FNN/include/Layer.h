@@ -20,22 +20,21 @@ public:
 	Layer(int size, int inputs)
 	{
         nodeValues = std::vector<double>(size);
-		weights = std::vector<std::vector<double>>(size);
+        weights = std::vector<std::vector<double>>(size);
         weightGradients = std::vector<std::vector<double>>(size);
         activations = std::vector<double>(size);
         sums = std::vector<double>(size);
         std::random_device rd;
         std::default_random_engine engine(rd());
-        std::uniform_real_distribution distr(0.0, 1.0);
-		for (int i = 0; i < size; i++) 
+        std::uniform_real_distribution<double> distr(-sqrt(6.0 / (size + inputs)), sqrt(6.0 / (size + inputs)));
+        for (int i = 0; i < size; i++) 
         {
             weights[i] = std::vector<double>(inputs);
             weightGradients[i] = std::vector<double>(inputs);
             for(int j = 0; j < inputs; j++) weights[i][j] = distr(engine);
         }
-		biases = std::vector<double>(size);
+        biases = std::vector<double>(size, 0);
         biasGradients = std::vector<double>(size);
-        for(int i = 0; i < size; i++) biases[i] = distr(engine);
 	}
 
     std::vector<double> calculateOutputs(std::vector<double> inputs)
@@ -83,9 +82,9 @@ public:
         {
             for(size_t j = 0; j < weights[i].size(); j++)
             {
-                weights[i][j] += weightGradients[i][j] * learnRate;
+                weights[i][j] -= weightGradients[i][j] * learnRate;
             }
-            biases[i] += biasGradients[i] * learnRate;
+            biases[i] -= biasGradients[i] * learnRate;
         }
     }
 };

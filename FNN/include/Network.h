@@ -57,11 +57,13 @@ public:
 	{
 		calculateOutputs(dataset.data);
 
-		Layer outputLayer = layers[layers.size() - 1];
+		Layer& outputLayer = layers[layers.size() - 1];
 		for(size_t i = 0; i < outputLayer.sums.size(); i++)
 		{
 			outputLayer.nodeValues[i] = Layer::activationDerivative(outputLayer.sums[i]) * 2 * (outputLayer.activations[i] - dataset.expected[i]);
 		}
+		
+		
 		resetAllGradients();
 		for(size_t i = 0; i < outputLayer.activations.size(); i++)
 		{
@@ -73,8 +75,8 @@ public:
 		}
 		for(size_t i = layers.size() - 2; i >= 0; i--)
 		{
-			Layer current = layers[i];
-			Layer prev = layers[i + 1];
+			Layer& current = layers[i];
+			Layer& prev = layers[i + 1];
 			// get node values
 			for(size_t node = 0; node < current.activations.size(); node++)
 			{
@@ -105,13 +107,13 @@ public:
 		{
 			layers[i].applyGradients(learnRate);
 		}
+		
 	}
 
 	void Learn(Dataset data, double learnRate)
 	{
 		updateGradients(data);
 		applyGradients(learnRate);
-		Layer layer = layers[0];
 	}
 };
 
