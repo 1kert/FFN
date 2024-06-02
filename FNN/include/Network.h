@@ -26,9 +26,9 @@ public:
 
 	std::vector<double> calculateOutputs(std::vector<double> inputs)
 	{
-		for(Layer layer : layers)
+		for(size_t i = 0; i < layers.size(); i++)
 		{
-			inputs = layer.calculateOutputs(inputs);
+			inputs = layers[i].calculateOutputs(inputs);
 		}
 		return inputs;
 	}
@@ -73,7 +73,6 @@ public:
 		}
 		for(size_t i = layers.size() - 2; i >= 0; i--)
 		{
-			printf("%d\n", i);
 			Layer current = layers[i];
 			Layer prev = layers[i + 1];
 			// get node values
@@ -82,14 +81,14 @@ public:
 				double nodeValue = 0;
 				for(size_t prevNode = 0; prevNode < prev.biases.size(); prevNode++) nodeValue += prev.weights[prevNode][node] * prev.nodeValues[prevNode];
 				current.nodeValues[node] = nodeValue * Layer::activationDerivative(current.sums[node]);
-				current.biasGradients[node] = current.nodeValues[node];
+				current.biasGradients[node] += current.nodeValues[node];
 				if(i == 0)
 				{
 					for(size_t j = 0; j < current.weightGradients[node].size(); j++)
 					{
 						current.weightGradients[node][j] += current.nodeValues[node] * dataset.data[j];
 					}
-					continue;
+					return;
 				}
 
 				for(size_t j = 0; j < current.weightGradients[node].size(); j++)
@@ -112,6 +111,7 @@ public:
 	{
 		updateGradients(data);
 		applyGradients(learnRate);
+		Layer layer = layers[0];
 	}
 };
 

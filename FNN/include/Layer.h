@@ -47,10 +47,11 @@ public:
         {
             for(size_t input = 0; input < inputSize; input++) output[node] += inputs[input] * weights[node][input];
             output[node] += biases[node];
-            sums[node] = output[node];
+            this->sums[node] = output[node];
             output[node] = activation(output[node]);
-            activations[node] = output[node];
+            this->activations[node] = output[node];
         }
+        
         return output;
     }
 
