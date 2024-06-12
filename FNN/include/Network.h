@@ -10,7 +10,7 @@ class Network
 public:
 	std::vector<Layer> layers;
 	
-	Network(std::vector<int> layers)
+	Network(const std::vector<int>& layers)
 	{
 		for (int i = 1; i < layers.size(); i++)
 		{
@@ -24,7 +24,7 @@ public:
 		return layers;
 	}
 
-	std::vector<double> calculateOutputs(std::vector<double> inputs)
+	std::vector<double> calculateOutputs(std::vector<double>& inputs)
 	{
 		for(size_t i = 0; i < layers.size(); i++)
 		{
@@ -41,7 +41,7 @@ public:
 		return error;
     }
 
-	double calculateError(std::vector<Dataset> data)
+	double calculateError(const std::vector<Dataset>& data)
 	{
 		double error = 0;
 		for(size_t i = 0; i < data.size(); i++) error += calculateError(data[i]);
@@ -77,7 +77,7 @@ public:
 		{
 			Layer& current = layers[i];
 			Layer& prev = layers[i + 1];
-			// get node values
+			
 			for(size_t node = 0; node < current.activations.size(); node++)
 			{
 				double nodeValue = 0;

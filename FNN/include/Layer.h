@@ -37,7 +37,7 @@ public:
         biasGradients = std::vector<double>(size);
 	}
 
-    std::vector<double> calculateOutputs(std::vector<double> inputs)
+    std::vector<double> calculateOutputs(const std::vector<double>& inputs)
     {
         int inputSize = weights[0].size();
         if(inputs.size() > inputSize) throw std::length_error("too many inputs");
