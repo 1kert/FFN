@@ -26,11 +26,11 @@ public:
 
 	std::vector<double> calculateOutputs(std::vector<double>& inputs)
 	{
-		for(size_t i = 0; i < layers.size(); i++)
+		for(size_t i = 0; i < layers.size() - 1; i++)
 		{
 			inputs = layers[i].calculateOutputs(inputs, false);
 		}
-		return inputs;
+		return layers[layers.size() - 1].calculateOutputs(inputs, true);
 	}
 
 	double calculateError(Dataset data)
@@ -82,7 +82,7 @@ public:
 			{
 				double nodeValue = 0;
 				for(size_t prevNode = 0; prevNode < prev.biases.size(); prevNode++) nodeValue += prev.weights[prevNode][node] * prev.nodeValues[prevNode];
-				current.nodeValues[node] = nodeValue * Layer::sigmoidDerivative(current.sums[node]);
+				current.nodeValues[node] = nodeValue * Layer::reluDerivative(current.sums[node]);
 				current.biasGradients[node] += current.nodeValues[node];
 				if(i == 0)
 				{
