@@ -28,7 +28,7 @@ public:
 	{
 		for(size_t i = 0; i < layers.size(); i++)
 		{
-			inputs = layers[i].calculateOutputs(inputs);
+			inputs = layers[i].calculateOutputs(inputs, false);
 		}
 		return inputs;
 	}
@@ -60,7 +60,7 @@ public:
 		Layer& outputLayer = layers[layers.size() - 1];
 		for(size_t i = 0; i < outputLayer.sums.size(); i++)
 		{
-			outputLayer.nodeValues[i] = Layer::activationDerivative(outputLayer.sums[i]) * 2 * (outputLayer.activations[i] - dataset.expected[i]);
+			outputLayer.nodeValues[i] = Layer::sigmoidDerivative(outputLayer.sums[i]) * 2 * (outputLayer.activations[i] - dataset.expected[i]);
 		}
 		
 		
@@ -82,7 +82,7 @@ public:
 			{
 				double nodeValue = 0;
 				for(size_t prevNode = 0; prevNode < prev.biases.size(); prevNode++) nodeValue += prev.weights[prevNode][node] * prev.nodeValues[prevNode];
-				current.nodeValues[node] = nodeValue * Layer::activationDerivative(current.sums[node]);
+				current.nodeValues[node] = nodeValue * Layer::sigmoidDerivative(current.sums[node]);
 				current.biasGradients[node] += current.nodeValues[node];
 				if(i == 0)
 				{

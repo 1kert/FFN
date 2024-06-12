@@ -37,7 +37,7 @@ public:
         biasGradients = std::vector<double>(size);
 	}
 
-    std::vector<double> calculateOutputs(const std::vector<double>& inputs)
+    std::vector<double> calculateOutputs(const std::vector<double>& inputs, bool isOutput)
     {
         int inputSize = weights[0].size();
         if(inputs.size() > inputSize) throw std::length_error("too many inputs");
@@ -47,19 +47,29 @@ public:
             for(size_t input = 0; input < inputSize; input++) output[node] += inputs[input] * weights[node][input];
             output[node] += biases[node];
             this->sums[node] = output[node];
-            output[node] = activation(output[node]);
+            output[node] = isOutput ? sigmoidActivation(output[node]) : reluActivation(output[node]);
             this->activations[node] = output[node];
         }
         
         return output;
     }
 
-    static double activation(double x)
+    static double reluActivation(double x)
+    {
+        return x < 0 ? 0 : x;
+    }
+
+    static double reluDerivative(double x)
+    {
+        return x < 0 ? 0 : 1;
+    }
+
+    static double sigmoidActivation(double x)
     {
         return 1 / (1 + std::exp(-x));
     }
 
-    static double activationDerivative(double x)
+    static double sigmoidDerivative(double x)
     {
         return std::exp(-x) / std::pow(1 + std::exp(-x), 2);
     }
