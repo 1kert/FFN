@@ -61,7 +61,7 @@ public:
 
     static double reluDerivative(double x)
     {
-        return x < 0 ? 0 : 1;
+        return x <= 0 ? 0 : 1;
     }
 
     static double sigmoidActivation(double x)
