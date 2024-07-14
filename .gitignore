@@ -3,9 +3,9 @@ CMakeCache*
 main.cpp
 FNN
 CMakeLists.txt.user
-qtsettings.cmake
+qtcsettings.cmake
 .cmake
 .qtc_clangd
 Testing/
 cmake_install.cmake
-makefile
+Makefile
