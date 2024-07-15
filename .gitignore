@@ -9,3 +9,4 @@ qtcsettings.cmake
 Testing/
 cmake_install.cmake
 Makefile
+build-debug/
